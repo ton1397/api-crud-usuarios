@@ -1,14 +1,21 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConexaoDAO } from './model/dao/conexao_postgres.dao';
 import { Usuario } from './model/dao/usuario_entity.dao';
 import { UsuarioModule } from './modules/usuario.module';
 import { AuthModule } from './modules/auth.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import typeorm from './model/dao/typeorm';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [typeorm],
+    }),
     TypeOrmModule.forRootAsync({
-      useClass: ConexaoDAO,
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) =>
+        configService.get('typeorm'),
     }),
     TypeOrmModule.forFeature([Usuario]),
     UsuarioModule,
