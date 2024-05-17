@@ -13,7 +13,7 @@ export class ConexaoDAO implements TypeOrmOptionsFactory {
       password: process.env.DB_PASS,
       database: process.env.DB_NAME,
       entities: [__dirname + '/../**/*_entity.dao{.ts,.js}'],
-      synchronize: true,
+      synchronize: Boolean(process.env.DB_SYNCHRONIZE),
     };
   }
 }
