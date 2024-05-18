@@ -1,39 +1,17 @@
-version: '3.8'
+version: '3'
 
 services:
   app:
-    build: 
-      context: .
-      dockerfile: Dockerfile
-    container_name: nest_app
-    restart: always
+    build: .
+    container_name: nestjs_app
+    ports:
+      - '3000:3000'
     env_file:
-      - ./.env
-    ports:
-      - "3000:3000"
-    depends_on:
-      - db
-    networks:
-      - app-network
-
-  db:
-    image: postgres:latest
-    container_name: postgres_db
-    restart: always
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASS}
-      POSTGRES_DB: ${DB_NAME}
-    ports:
-      - "5432:5432"
+      - .env
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./src/model/dao/sql/database.sql:/docker-entrypoint-initdb.d/database.sql
-    networks:
-      - app-network
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run start:dev
 
 volumes:
-  postgres_data:
-
-networks:
-  app-network:
+  postgres-data:

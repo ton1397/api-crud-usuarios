@@ -1,24 +1,23 @@
-# Use uma imagem base oficial do Node.js
+# Usar uma imagem base Node
 FROM node:20.12-alpine3.18
 
-# Define o diretório de trabalho no container
-WORKDIR /app
+# Definir o diretório de trabalho no contêiner
+WORKDIR /usr/src/app
 
-# Copia o package.json e package-lock.json (se existir)
+# Copiar o package.json e o package-lock.json
 COPY package*.json ./
 
-# Instala as dependências
+# Instalar as dependências
 RUN npm install
 
-# Copia o restante do código do aplicativo
+# Copiar o restante do código da aplicação
 COPY . .
 
-# Compila o aplicativo NestJS
+# Compilar a aplicação
 RUN npm run build
 
-
-# Expõe a porta que a aplicação vai rodar
+# Expor a porta que a aplicação irá rodar
 EXPOSE 3000
 
-# Comando para rodar a aplicação
+# Comando para iniciar a aplicação
 CMD ["npm", "run", "start:prod"]
