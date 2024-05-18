@@ -16,6 +16,7 @@ COPY . .
 # Compila o aplicativo NestJS
 RUN npm run build
 
+
 # Expõe a porta que a aplicação vai rodar
 EXPOSE 3000
 

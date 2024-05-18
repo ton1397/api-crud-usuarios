@@ -35,6 +35,16 @@ Este projeto é uma API de CRUD de usuários construída com Node.js, Express e 
 
    Este comando irá construir e iniciar os containers Docker definidos no arquivo `docker-compose.yml`.
 
+5. **Em caso de falhas:**
+
+   Caso não funcione api pode ser que o banco ou a tabela não foram criadas. Nesse caso dentro da pasta sql tem um script para que você possa executar no seu banco local e testar usando o comando:
+
+   ```sh
+   npm run start:dv
+   ```
+
+   Este comando irá construir e iniciar os containers Docker definidos no arquivo `docker-compose.yml`.
+
 ## Acessando a API
 
 Após a conclusão do build, a API estará disponível na seguinte URL:
